@@ -1,7 +1,7 @@
 from groq import Groq
 import client_manager
 
-
+history = None #初期化用
 def generate_response(user_text, history=None):
     """
     user_text: Whisperで取得したテキスト
@@ -31,11 +31,3 @@ def generate_response(user_text, history=None):
     history.append({"role": "assistant", "content": ai_text})
 
     return ai_text, history
-
-
-# 動作確認
-if __name__ == "__main__":
-    user_text = "こんにちは、元気ですか？"
-    ai_text, history = generate_response(user_text)
-
-    print("AIの返答：", ai_text)

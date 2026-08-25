@@ -23,12 +23,3 @@ def transcribe_audio(wav_buffer):
     text = response.text
     return text
     
-
-if __name__ == "__main__":
-    # STEP1の録音関数を使う
-    from record import record_audio  # ← STEP1のコードを別ファイルにした場合
-
-    wav_data = record_audio()
-    text = transcribe_audio(wav_data)
-
-    print("認識結果：", text)
