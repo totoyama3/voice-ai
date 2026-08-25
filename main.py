@@ -2,17 +2,24 @@ import record
 import analysis_whisper
 import response_groq
 
+COUNT_MAX = 10
+
 def main():
-    #録音開始
-    print("wav data")
-    wav_data = record.record_audio()
+    history = None
+    cnt = 0
 
-    #録音データを分析
-    print("analysis")
-    analysis_text = analysis_whisper.transcribe_audio(wav_data)
+    while cnt < COUNT_MAX:
+        cnt += 1
+        #録音開始
+        print("wav data")
+        wav_data = record.record_audio()
 
-    ai_text, history = response_groq.generate_response(analysis_text)
+        #録音データを分析
+        print("analysis")
+        analysis_text = analysis_whisper.transcribe_audio(wav_data)
 
-    print(ai_text)
+        ai_text, history = response_groq.generate_response(analysis_text, history)
+
+        print(ai_text)
 
 main()

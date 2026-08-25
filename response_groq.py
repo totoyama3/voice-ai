@@ -1,13 +1,15 @@
 from groq import Groq
+import client_manager
 
-# Groq API クライアント
-client = Groq(api_key="GROQ_API_KEY")
 
 def generate_response(user_text, history=None):
     """
     user_text: Whisperで取得したテキスト
     history: 過去の会話履歴（リスト）
     """
+    # Groq API クライアント
+    key = client_manager.api_manager("groq_api")
+    client = Groq(api_key = key)
 
     if history is None:
         history = []

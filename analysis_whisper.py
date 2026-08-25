@@ -1,12 +1,16 @@
 from groq import Groq
+import client_manager
 
-# Groq API クライアント
-client = Groq(api_key="GROQ_API_KEY")
 
 def transcribe_audio(wav_buffer):
     """
     wav_buffer: STEP1で作った BytesIO の音声データ
     """
+    # Groq API クライアント
+    key = client_manager.api_manager("groq_api")
+    client = Groq(api_key = key)
+
+
     wav_buffer.seek(0)
 
     response = client.audio.transcriptions.create(
