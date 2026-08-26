@@ -2,6 +2,7 @@ import record
 import analysis_whisper
 import response_groq
 import speak_text
+import finish_check
 
 COUNT_MAX = 10
 
@@ -16,6 +17,10 @@ def main():
 
         #録音データを分析
         analysis_text = analysis_whisper.transcribe_audio(wav_data)
+
+        #終了するか確認
+        if finish_check.text_word_check(analysis_text):
+            break
 
         #AIの回答を作成
         ai_text, history = response_groq.generate_response(analysis_text, history)
