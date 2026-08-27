@@ -9,6 +9,7 @@ SAMPLE_RATE = 16000  # Whisper推奨
 DURATION = 0.5       # 録音秒数
 SILENCE_TIME_LEVEL = 1.5   # 無音判定時間
 SILENCE_VOLUME_LEVEL = 300  # 無音判定音声レベル
+METHOD = "record"
 
 def record_audio():
     audio_data = []
@@ -34,8 +35,13 @@ def record_audio():
     audio_data = np.concatenate(audio_data)
 
     # numpy配列 → WAVバッファに変換
-    wav_buffer = io.BytesIO()
-    write(wav_buffer, SAMPLE_RATE, audio_data)
-    wav_buffer.seek(0)
+    try:
+        wav_buffer = io.BytesIO()
+        write(wav_buffer, SAMPLE_RATE, audio_data)
+        wav_buffer.seek(0)
+    except Exception as e:
+        print(f"{METHOD}の変換中にエラー発生しました")
+        print(f"エラー内容：{e}")
+        return None
 
     return wav_buffer

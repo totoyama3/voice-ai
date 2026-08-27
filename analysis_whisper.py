@@ -1,23 +1,31 @@
 from groq import Groq
 import client_manager
 
+METHOD = "whisper"
 
 def transcribe_audio(wav_buffer):
-    """
-    wav_buffer: STEP1で作った BytesIO の音声データ
-    """
     # Groq API クライアント
     key = client_manager.api_manager("groq_api")
-    client = Groq(api_key = key)
 
+    try:
+        client = Groq(api_key = key)
+    except Exception as e:
+        print(f"{METHOD}のクライアント取得でエラー発生しました")
+        print(f"エラー内容：{e}")
+        return None
 
     wav_buffer.seek(0)
 
-    response = client.audio.transcriptions.create(
-        file=("audio.wav", wav_buffer, "audio/wav"),
-        model="whisper-large-v3",
-        response_format="json"
-    )
+    try:
+        response = client.audio.transcriptions.create(
+            file=("audio.wav", wav_buffer, "audio/wav"),
+            model="whisper-large-v3",
+            response_format="json"
+        )
+    except Exception as e:
+        print(f"{METHOD}のAI処理中にエラー発生しました")
+        print(f"エラー内容：{e}")
+        return None
 
     # Whisperが返すテキスト
     text = response.text
