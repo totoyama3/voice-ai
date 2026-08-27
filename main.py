@@ -4,14 +4,11 @@ import response_groq
 import speak_text
 import finish_check
 
-COUNT_MAX = 10
 
 def main():
     history = None
-    cnt = 0
 
-    while cnt < COUNT_MAX:
-        cnt += 1
+    while True:
         #録音開始
         wav_data = record.record_audio()
         if wav_data is None:

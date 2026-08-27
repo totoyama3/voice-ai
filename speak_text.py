@@ -1,8 +1,9 @@
 import pyttsx3
 
-engine = pyttsx3.init()
 
 def speak(text):
+    engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
-
+    print("wait_finish")
+    return
