@@ -1,11 +1,11 @@
 from groq import Groq
-import client_manager
+import secret_manager
 
 METHOD = "whisper"
 
 def transcribe_audio(wav_buffer):
     # Groq API クライアント
-    key = client_manager.api_manager("groq_api")
+    key = secret_manager.api_manager("groq_api")
 
     try:
         client = Groq(api_key = key)

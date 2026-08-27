@@ -1,5 +1,5 @@
 from groq import Groq
-import client_manager
+import secret_manager
 
 METHOD = "response"
 history = None #初期化用
@@ -7,7 +7,7 @@ history = None #初期化用
 def generate_response(user_text, history=None):
     # Groq API クライアント
     try:
-        key = client_manager.api_manager("groq_api")
+        key = secret_manager.api_manager("groq_api")
         client = Groq(api_key = key)
     except Exception as e:
         print(f"{METHOD}のクライアント取得でエラー発生しました")
