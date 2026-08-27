@@ -30,7 +30,7 @@ def generate_response(user_text, history=None):
     except Exception as e:
         print(f"{METHOD}のAI処理でエラー発生しました")
         print(f"エラー内容：{e}")
-        return None, None
+        return None, history
 
     # 応答テキスト
     ai_text = response.choices[0].message.content
