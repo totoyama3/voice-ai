@@ -12,7 +12,7 @@ def generate_response(user_text, history=None):
     except Exception as e:
         print(f"{METHOD}のクライアント取得でエラー発生しました")
         print(f"エラー内容：{e}")
-        return None, None
+        return None, history
 
     if history is None:
         history = []
