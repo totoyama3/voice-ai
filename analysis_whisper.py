@@ -20,7 +20,8 @@ def transcribe_audio(wav_buffer):
         response = client.audio.transcriptions.create(
             file=("audio.wav", wav_buffer, "audio/wav"),
             model="whisper-large-v3",
-            response_format="json"
+            response_format="json",
+            language="ja" 
         )
     except Exception as e:
         print(f"{METHOD}のAI処理中にエラー発生しました")
@@ -30,4 +31,3 @@ def transcribe_audio(wav_buffer):
     # Whisperが返すテキスト
     text = response.text
     return text
-    

@@ -8,7 +8,6 @@ VOICEVOX_URL = "http://127.0.0.1:50021"
 # 話者ID
 SPEAKER = 3
 
-
 def speak(text):
 
     # 音声合成用のクエリを作成
@@ -49,3 +48,38 @@ def speak(text):
     play.wait_done()
 
     wav_file.close()
+
+
+#Discord用のボイスを生成する
+def create_discord_voice(text, output_file="voicevox_audio.wav"):
+    # 音声合成用のクエリを作成
+    query_response = requests.post(
+        f"{VOICEVOX_URL}/audio_query",
+        params={
+            "text": text,
+            "speaker": SPEAKER
+        }
+    )
+
+    query_response.raise_for_status()
+
+    query = query_response.json()
+
+    # 音声合成
+    synthesis_response = requests.post(
+        f"{VOICEVOX_URL}/synthesis",
+        params={
+            "speaker": SPEAKER
+        },
+        json=query
+    )
+
+    synthesis_response.raise_for_status()
+
+    # WAVとして保存
+    with open(output_file, "wb") as f:
+        f.write(synthesis_response.content)
+
+    print(f"音声ファイルを作成しました: {output_file}")
+
+    return output_file 
